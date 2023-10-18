@@ -7,7 +7,6 @@ public class source extends Panel implements ActionListener,ItemListener{
     Panel topPanel,bottomPanel,
             bottomPanel_left,bottomPanel_mid,bottomPanel_right;
     Checkbox ch1,ch2;
-    CheckboxGroup chGr;
     Graphics gc;
     Scrollbar scrY,scrX;
     Label text;
@@ -18,12 +17,10 @@ public class source extends Panel implements ActionListener,ItemListener{
     public void paint(Graphics g){
         if (ch1.getState()){
 
-            gc.drawRect(10,10,10,10);
             gc.fillRect(10,10,10,10);
         }
         if (ch2.getState()){
 
-            gc.drawOval(10,10,10,10);
             gc.fillOval(10,10,10,10);
         }
     }
@@ -58,6 +55,9 @@ public class source extends Panel implements ActionListener,ItemListener{
                 }
             });
 */
+
+        
+
         add(topPanel);
 
         //нижняя панель
@@ -184,7 +184,7 @@ public class source extends Panel implements ActionListener,ItemListener{
 
     public static void main(String args[]) 
  {
-	source panel = new source ();   
+	source panel = new source ();
   
 	Frame frame = new Frame("An AWT-Based Application");	
 	frame.add(panel);
