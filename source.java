@@ -1,10 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout; 
-
-import javax.swing.border.Border;
+import javax.swing.BoxLayout;
 
 
 
@@ -17,6 +14,7 @@ public class source extends Panel implements ActionListener,ItemListener{
     Checkbox ch1,ch2;
     CheckboxGroup chGr;
     Graphics gc;
+    Scrollbar scrY,scrX;
     Label text;
     Font font;
     Choice chShape,chBg;
@@ -41,6 +39,28 @@ public class source extends Panel implements ActionListener,ItemListener{
         setLayout (new GridLayout(2,3));
 
         topPanel = new Panel(new BorderLayout());
+        scrX = new Scrollbar(Scrollbar.HORIZONTAL, 1, 1, 10, 100);
+        scrX.setEnabled(true);
+        scrY = new Scrollbar(Scrollbar.VERTICAL, 1, 1, 10, 100);
+        scrY.setEnabled(true);
+
+        scrX.addAdjustmentListener(new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                if (scrX == e.getSource()) {
+                    gc = e.getValue();
+                    text.setFont(new Font(font.getName(),font.getStyle(),g));
+                }
+                }
+            });
+
+        scrY.addAdjustmentListener(new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                if (scrY == e.getSource()) {
+                    gc = e.getValue();
+                    text.setFont(new Font(font.getName(),font.getStyle(),g));
+                }
+                }
+            });
 
         //нижняя панель
         bottomPanel = new Panel((new GridLayout(1,3)));
