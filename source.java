@@ -19,6 +19,8 @@ public class source extends Panel implements ActionListener,ItemListener{
     Graphics gc;
     Label text;
     Font font;
+    Choice chShape,chBg;
+    Color shapeColor,bgColor;
 
     
     public void paint(Graphics g){
@@ -39,12 +41,12 @@ public class source extends Panel implements ActionListener,ItemListener{
         setLayout (new GridLayout(2,3));
 
         topPanel = new Panel(new BorderLayout());
-        
-        //topPanel.add();
 
-        //левая нижняя панель
+        //нижняя панель
         bottomPanel = new Panel((new GridLayout(1,3)));
 
+
+        //левая нижняя панель
         bottomPanel_left.setLayout(new BoxLayout(bottomPanel_left,BoxLayout.Y_AXIS));
         bottomPanel_left.setBackground(Color.GREEN);
 
@@ -52,6 +54,43 @@ public class source extends Panel implements ActionListener,ItemListener{
         font= new Font("Dialog",Font.PLAIN,14);
         text.setFont(font);
         bottomPanel_left.add(text);
+
+        chBg = new Choice();
+        chBg.addItem("Черный");
+        chBg.addItem("Синий");
+        chBg.addItem("Розовый");
+        chBg.addItem("Красный");
+        chBg.addItem("Зеленый");
+        chBg.addItem("Белый");
+        bottomPanel_left.add(chBg);
+
+        chBg.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                String name = (String) e.getItem();
+                if (name!=null) {
+                    switch (name) {
+                        case "Черный":
+                            topPanel.setBackground(Color.black);
+                            break;
+                        case "Синий":
+                            topPanel.setBackground(Color.blue);
+                            break;
+                        case "Розовый":
+                            topPanel.setBackground(Color.pink);
+                            break;
+                        case "Красный":
+                            topPanel.setBackground(Color.red);
+                            break;
+                        case "Зеленый":
+                            topPanel.setBackground(Color.green);
+                            break;
+                        case "Белый":
+                            topPanel.setBackground(Color.white);
+                            break;
+                    }
+                }
+            }
+        });
 
         add(bottomPanel_left);
 
@@ -71,7 +110,52 @@ public class source extends Panel implements ActionListener,ItemListener{
 	    ch2.addItemListener(this);
         bottomPanel_mid.add(ch2);
 
+        add(bottomPanel_mid);
 
+        //правая нижняя панель
+        bottomPanel_right.setLayout(new BoxLayout(bottomPanel_right,BoxLayout.Y_AXIS));
+
+        text=new Label("Выберите цвет рисунка:");
+        font= new Font("Dialog",Font.PLAIN,14);
+        text.setFont(font);
+        bottomPanel_right.add(text);
+
+        chShape = new Choice();
+        chShape.addItem("Черный");
+        chShape.addItem("Синий");
+        chShape.addItem("Розовый");
+        chShape.addItem("Красный");
+        chShape.addItem("Зеленый");
+        chShape.addItem("Белый");
+        bottomPanel_right.add(chShape);
+
+        chShape.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                String name = (String) e.getItem();
+                if (name!=null) {
+                    switch (name) {
+                        case "Черный":
+                            gc.setColor(Color.black);
+                            break;
+                        case "Синий":
+                            gc.setColor(Color.blue);
+                            break;
+                        case "Розовый":
+                            gc.setColor(Color.pink);
+                            break;
+                        case "Красный":
+                            gc.setColor(Color.red);
+                            break;
+                        case "Зеленый":
+                            gc.setColor(Color.green);
+                            break;
+                        case "Белый":
+                            gc.setColor(Color.white);
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     public static void main(String args[]) 
