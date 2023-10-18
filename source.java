@@ -1,16 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.BoxLayout;
-
-
 
 public class source extends Panel implements ActionListener,ItemListener{
 
     Panel topPanel,bottomPanel,
             bottomPanel_left,bottomPanel_mid,bottomPanel_right;
-
-
     Checkbox ch1,ch2;
     CheckboxGroup chGr;
     Graphics gc;
@@ -19,7 +14,6 @@ public class source extends Panel implements ActionListener,ItemListener{
     Font font;
     Choice chShape,chBg;
     Color shapeColor,bgColor;
-
     
     public void paint(Graphics g){
         if (ch1.getState()){
@@ -36,14 +30,16 @@ public class source extends Panel implements ActionListener,ItemListener{
     
     public source(){
 
-        setLayout (new GridLayout(2,3));
+        setLayout (new GridLayout(2,1));
 
         topPanel = new Panel(new BorderLayout());
         scrX = new Scrollbar(Scrollbar.HORIZONTAL, 1, 1, 10, 100);
         scrX.setEnabled(true);
+        topPanel.add(scrX,BorderLayout.NORTH);
         scrY = new Scrollbar(Scrollbar.VERTICAL, 1, 1, 10, 100);
         scrY.setEnabled(true);
-
+        topPanel.add(scrY,BorderLayout.WEST);
+/*
         scrX.addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if (scrX == e.getSource()) {
@@ -61,17 +57,18 @@ public class source extends Panel implements ActionListener,ItemListener{
                 }
                 }
             });
+*/
+        add(topPanel);
 
         //нижняя панель
-        bottomPanel = new Panel((new GridLayout(1,3)));
-
+        bottomPanel = new Panel(new GridLayout());
+        bottomPanel_left = new Panel (new GridLayout());
 
         //левая нижняя панель
-        bottomPanel_left.setLayout(new BoxLayout(bottomPanel_left,BoxLayout.Y_AXIS));
         bottomPanel_left.setBackground(Color.GREEN);
 
-        text=new Label("Выберите цвет фона:");
-        font= new Font("Dialog",Font.PLAIN,14);
+        text = new Label("Выберите цвет фона:");
+        font = new Font("Dialog",Font.PLAIN,14);
         text.setFont(font);
         bottomPanel_left.add(text);
 
@@ -112,15 +109,18 @@ public class source extends Panel implements ActionListener,ItemListener{
             }
         });
 
-        add(bottomPanel_left);
+        bottomPanel.add(bottomPanel_left);
 
         //средняя нижняя панель
-        bottomPanel_mid.setLayout(new BoxLayout(bottomPanel_mid, BoxLayout.Y_AXIS));
+        bottomPanel_mid = new Panel(new GridLayout());
+        bottomPanel_mid.setBackground(Color.gray);
 
-        text=new Label("Фигура:");
-        font= new Font("Dialog",Font.PLAIN,14);
+        text = new Label("Фигура:");
+        font = new Font("Dialog",Font.PLAIN,14);
         text.setFont(font);
         bottomPanel_mid.add(text);
+
+        CheckboxGroup chGr = new CheckboxGroup();
 
         ch1 = new Checkbox("Квадрат",false,chGr);
 	    ch1.addItemListener(this);
@@ -130,10 +130,11 @@ public class source extends Panel implements ActionListener,ItemListener{
 	    ch2.addItemListener(this);
         bottomPanel_mid.add(ch2);
 
-        add(bottomPanel_mid);
+        bottomPanel.add(bottomPanel_mid);
 
         //правая нижняя панель
-        bottomPanel_right.setLayout(new BoxLayout(bottomPanel_right,BoxLayout.Y_AXIS));
+        bottomPanel_right = new Panel(new GridLayout());
+        bottomPanel_right.setBackground(Color.GREEN);
 
         text=new Label("Выберите цвет рисунка:");
         font= new Font("Dialog",Font.PLAIN,14);
@@ -176,6 +177,9 @@ public class source extends Panel implements ActionListener,ItemListener{
                 }
             }
         });
+        bottomPanel.add(bottomPanel_right);
+
+        add(bottomPanel);
     }
 
     public static void main(String args[]) 
