@@ -13,23 +13,29 @@ public class source extends Panel implements ActionListener,ItemListener{
     Font font;
     Choice chShape,chBg;
     Color shapeColor,bgColor;
-    
-    public void paint(Graphics g){
-        if (ch1.getState()){
-
-            gc.fillRect(10,10,10,10);
-        }
-        if (ch2.getState()){
-
-            gc.fillOval(10,10,10,10);
-        }
-    }
+    Canvas canvas;
     
     public source(){
 
         setLayout (new GridLayout(2,1));
 
         topPanel = new Panel(new BorderLayout());
+
+        canvas = new Canvas(){
+            public void paint(Graphics gc){
+                if (ch1.getState()){
+
+                gc.fillRect(10,10,10,10);
+                }
+                if (ch2.getState()){
+
+                gc.fillOval(10,10,10,10);
+                }
+            }
+        };
+
+        topPanel.add(canvas,BorderLayout.CENTER);
+
         scrX = new Scrollbar(Scrollbar.HORIZONTAL, 1, 1, 10, 100);
         scrX.setEnabled(true);
         topPanel.add(scrX,BorderLayout.NORTH);
@@ -55,8 +61,6 @@ public class source extends Panel implements ActionListener,ItemListener{
                 }
             });
 */
-
-        
 
         add(topPanel);
 
@@ -87,22 +91,22 @@ public class source extends Panel implements ActionListener,ItemListener{
                 if (name!=null) {
                     switch (name) {
                         case "Черный":
-                            topPanel.setBackground(Color.black);
+                            canvas.setBackground(Color.black);
                             break;
                         case "Синий":
-                            topPanel.setBackground(Color.blue);
+                            canvas.setBackground(Color.blue);
                             break;
                         case "Розовый":
-                            topPanel.setBackground(Color.pink);
+                            canvas.setBackground(Color.pink);
                             break;
                         case "Красный":
-                            topPanel.setBackground(Color.red);
+                            canvas.setBackground(Color.red);
                             break;
                         case "Зеленый":
-                            topPanel.setBackground(Color.green);
+                            canvas.setBackground(Color.green);
                             break;
                         case "Белый":
-                            topPanel.setBackground(Color.white);
+                            canvas.setBackground(Color.white);
                             break;
                     }
                 }
@@ -129,6 +133,24 @@ public class source extends Panel implements ActionListener,ItemListener{
         ch2 = new Checkbox("Круг",false,chGr);
 	    ch2.addItemListener(this);
         bottomPanel_mid.add(ch2);
+
+        ch1.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                canvas.paint(gc);
+                canvas.repaint();
+            }
+        });
+
+        ch1.getItemListeners();
+
+        ch2.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                canvas.paint(gc);
+                canvas.repaint();
+            }
+        });
+
+        ch2.getItemListeners();
 
         bottomPanel.add(bottomPanel_mid);
 
@@ -157,26 +179,34 @@ public class source extends Panel implements ActionListener,ItemListener{
                     switch (name) {
                         case "Черный":
                             gc.setColor(Color.black);
+                            canvas.repaint();
                             break;
                         case "Синий":
                             gc.setColor(Color.blue);
+                            canvas.repaint();
                             break;
                         case "Розовый":
                             gc.setColor(Color.pink);
+                            canvas.repaint();
                             break;
                         case "Красный":
                             gc.setColor(Color.red);
+                            canvas.repaint();
                             break;
                         case "Зеленый":
                             gc.setColor(Color.green);
+                            canvas.repaint();
                             break;
                         case "Белый":
                             gc.setColor(Color.white);
+                            canvas.repaint();
                             break;
                     }
                 }
             }
         });
+
+        chShape.getItemListeners();
         bottomPanel.add(bottomPanel_right);
 
         add(bottomPanel);
