@@ -141,8 +141,6 @@ public class source extends Panel implements ActionListener,ItemListener{
             }
         });
 
-        ch1.getItemListeners();
-
         ch2.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
                 canvas.paint(gc);
@@ -150,16 +148,14 @@ public class source extends Panel implements ActionListener,ItemListener{
             }
         });
 
-        ch2.getItemListeners();
-
         bottomPanel.add(bottomPanel_mid);
 
         //правая нижняя панель
         bottomPanel_right = new Panel(new GridLayout());
         bottomPanel_right.setBackground(Color.GREEN);
 
-        text=new Label("Выберите цвет рисунка:");
-        font= new Font("Dialog",Font.PLAIN,14);
+        text = new Label("Выберите цвет рисунка:");
+        font = new Font("Dialog",Font.PLAIN,14);
         text.setFont(font);
         bottomPanel_right.add(text);
 
@@ -206,7 +202,6 @@ public class source extends Panel implements ActionListener,ItemListener{
             }
         });
 
-        chShape.getItemListeners();
         bottomPanel.add(bottomPanel_right);
 
         add(bottomPanel);
