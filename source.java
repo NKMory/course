@@ -14,6 +14,7 @@ public class source extends Panel implements ActionListener,ItemListener{
     Choice chShape,chBg;
     Color shapeColor,bgColor;
     Canvas canvas;
+    int coordX = 1, coordY = 1;
     
     public source(){
 
@@ -22,45 +23,51 @@ public class source extends Panel implements ActionListener,ItemListener{
         topPanel = new Panel(new BorderLayout());
 
         canvas = new Canvas(){
-            public void paint(Graphics gc){
+            public void paint(Graphics g){
+                System.out.println("Вызван метод paint()");
+                g = canvas.getGraphics();
                 if (ch1.getState()){
-
-                gc.fillRect(10,10,10,10);
+                g.setColor(shapeColor);
+                g.fillRect(coordX,coordY,10,10);
+                System.out.println("Отрисован квадрат");
                 }
                 if (ch2.getState()){
-
-                gc.fillOval(10,10,10,10);
+                g.setColor(shapeColor);
+                g.fillOval(coordX,coordY,10,10);
+                System.out.println("Отрисован круг");
                 }
             }
         };
 
         topPanel.add(canvas,BorderLayout.CENTER);
 
-        scrX = new Scrollbar(Scrollbar.HORIZONTAL, 1, 1, 10, 100);
+        
+        scrX = new Scrollbar(Scrollbar.HORIZONTAL, 1, 1, 1, 100);
         scrX.setEnabled(true);
         topPanel.add(scrX,BorderLayout.NORTH);
-        scrY = new Scrollbar(Scrollbar.VERTICAL, 1, 1, 10, 100);
+        scrY = new Scrollbar(Scrollbar.VERTICAL, 1, 1, 1, 100);
         scrY.setEnabled(true);
         topPanel.add(scrY,BorderLayout.WEST);
-/*
+
         scrX.addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if (scrX == e.getSource()) {
-                    gc = e.getValue();
-                    text.setFont(new Font(font.getName(),font.getStyle(),g));
+                    int curValue = scrX.getValue();
+                    
+                    coordX += 1;
+                    canvas.repaint();
                 }
-                }
-            });
+            }
+        });
 
         scrY.addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if (scrY == e.getSource()) {
-                    gc = e.getValue();
-                    text.setFont(new Font(font.getName(),font.getStyle(),g));
+                    coordY += 1;
+                    canvas.repaint();
                 }
                 }
             });
-*/
 
         add(topPanel);
 
@@ -89,23 +96,30 @@ public class source extends Panel implements ActionListener,ItemListener{
             public void itemStateChanged(ItemEvent e) {
                 String name = (String) e.getItem();
                 if (name!=null) {
+                    System.out.println("Меняем цвет фона на");
                     switch (name) {
                         case "Черный":
+                            System.out.println("черный");
                             canvas.setBackground(Color.black);
                             break;
                         case "Синий":
+                            System.out.println("синий");
                             canvas.setBackground(Color.blue);
                             break;
                         case "Розовый":
+                            System.out.println("розовый");
                             canvas.setBackground(Color.pink);
                             break;
                         case "Красный":
+                            System.out.println("красный");
                             canvas.setBackground(Color.red);
                             break;
                         case "Зеленый":
+                            System.out.println("зеленый");
                             canvas.setBackground(Color.green);
                             break;
                         case "Белый":
+                            System.out.println("белый");
                             canvas.setBackground(Color.white);
                             break;
                     }
@@ -127,26 +141,26 @@ public class source extends Panel implements ActionListener,ItemListener{
         CheckboxGroup chGr = new CheckboxGroup();
 
         ch1 = new Checkbox("Квадрат",false,chGr);
-	    ch1.addItemListener(this);
+	    ch1.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                System.out.println("Выбран квадрат");
+                canvas.paint(gc);
+                gc = canvas.getGraphics();
+                canvas.update(gc);
+            }
+        });
         bottomPanel_mid.add(ch1);
 
         ch2 = new Checkbox("Круг",false,chGr);
-	    ch2.addItemListener(this);
+	    ch2.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                System.out.println("Выбран круг");
+                canvas.paint(gc);
+                gc = canvas.getGraphics();
+                canvas.update(gc);
+            }
+        });
         bottomPanel_mid.add(ch2);
-
-        ch1.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e){
-                canvas.paint(gc);
-                canvas.repaint();
-            }
-        });
-
-        ch2.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e){
-                canvas.paint(gc);
-                canvas.repaint();
-            }
-        });
 
         bottomPanel.add(bottomPanel_mid);
 
@@ -172,32 +186,34 @@ public class source extends Panel implements ActionListener,ItemListener{
             public void itemStateChanged(ItemEvent e) {
                 String name = (String) e.getItem();
                 if (name!=null) {
+                    System.out.println("Меняем цвет фигуры на");
                     switch (name) {
                         case "Черный":
-                            gc.setColor(Color.black);
-                            canvas.repaint();
+                            System.out.println("черный");
+                            shapeColor = Color.black;
                             break;
                         case "Синий":
-                            gc.setColor(Color.blue);
-                            canvas.repaint();
+                            System.out.println("синий");
+                            shapeColor = Color.blue;
                             break;
                         case "Розовый":
-                            gc.setColor(Color.pink);
-                            canvas.repaint();
+                            System.out.println("розовый");
+                            shapeColor = Color.pink;
                             break;
                         case "Красный":
-                            gc.setColor(Color.red);
-                            canvas.repaint();
+                            System.out.println("красный");
+                            shapeColor = Color.red;
                             break;
                         case "Зеленый":
-                            gc.setColor(Color.green);
-                            canvas.repaint();
+                            System.out.println("зеленый");
+                            shapeColor = Color.green;
                             break;
                         case "Белый":
-                            gc.setColor(Color.white);
-                            canvas.repaint();
+                            System.out.println("белый");
+                            shapeColor = Color.white;
                             break;
                     }
+                    canvas.repaint();
                 }
             }
         });
@@ -233,5 +249,5 @@ public class source extends Panel implements ActionListener,ItemListener{
     public void itemStateChanged(ItemEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'itemStateChanged'");
-    } 
+    }
 }
