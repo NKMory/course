@@ -14,7 +14,7 @@ public class source extends Panel implements ActionListener,ItemListener{
     Choice chShape,chBg;
     Color shapeColor,bgColor;
     Canvas canvas;
-    int coordX = 1, coordY = 1;
+    int coordX = 0, coordY = 0;
     
     public source(){
 
@@ -52,9 +52,7 @@ public class source extends Panel implements ActionListener,ItemListener{
         scrX.addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if (scrX == e.getSource()) {
-                    int curValue = scrX.getValue();
-                    
-                    coordX += 1;
+                    coordX = (int) ((e.getValue()/100.0)*canvas.getWidth());
                     canvas.repaint();
                 }
             }
@@ -63,7 +61,7 @@ public class source extends Panel implements ActionListener,ItemListener{
         scrY.addAdjustmentListener(new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent e) {
                 if (scrY == e.getSource()) {
-                    coordY += 1;
+                    coordY = (int) ((e.getValue()/100.0)*canvas.getHeight());
                     canvas.repaint();
                 }
                 }
